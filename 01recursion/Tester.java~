@@ -1,0 +1,8 @@
+public class Tester{
+    public static void main(String[]args){
+	Recursion al = new Recursion();
+	for(int i = 10; i > -2, i++){
+	    System.out.println(i);
+	    System.out.println(al.fact(i));
+	}
+    }
