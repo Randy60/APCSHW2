@@ -30,7 +30,7 @@ public class Recursion{
 	}
     }
     public double sqrt(double n, double guess){
-	if(guess*guess > n && (guess*guess)%n < n/10000){
+	if(guess*guess >= n && (guess*guess)%n < n/10000){
 	    return guess;
 	}else{
 	    return sqrt(n,(n / guess + guess)/2);
