@@ -1,0 +1,9 @@
+public class Tester{
+    public static void main(String[]args){
+	if(args.length > 0){
+	    KnightsTour al = new KnightsTour(parseInt(args[0]));
+	}else{
+	    KnightsTour al = new KnightsTour(6);
+	}
+    }
+}

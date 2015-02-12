@@ -4,4 +4,4 @@ public class Tester{
 	    System.out.println(0);
 	    System.out.println(al.fact(0));
     }
-}
+}y

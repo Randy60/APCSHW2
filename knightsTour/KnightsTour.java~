@@ -25,14 +25,11 @@ public class KnightsTour{
 				catch (InterruptedException e) {
 				}
     }
-
     public String toString(){
-				String ans = "\n";
-				//build your knights tour here...
-				return hide + go(0,0) + ans + "\n" + show;
+	return toString(board);
     }
     public String toString(int[][] ar){
-	String s = "";
+	String s = "\n";
 	for(int i = 0; i < ar.length*ar[0].length; i++){
 	    if(i%ar.length == 0){
 		s+="\n";
@@ -52,31 +49,32 @@ public class KnightsTour{
 	    s+=x;
 	    s+="|";
 	}
-	return s;
+	return hide + go(0,0)+ s + "\n" + show;
     }
     public KnightsTour(int size){
-				
+	board = new int[size][size];
+	solve();
     }
 
     
 
     public void solve(){
-				
+	int[][] nb = board;
+	solve(nb ,0, 0, 0);
+	System.out.println(toString(board));
     }
-
-
-    public void solve(int startx, int starty){
-				
-    }
-
-
-
 		
-    public boolean solve(int x,int y,int currentMoveNumber){
-				System.out.println(this);
-				wait(20);
-				
-				return false;
+    public boolean solve(int[][] brd, int x,int y,int currentMoveNumber){
+	if(x < 0 || x >= brd.length || y < 0 || y >= brd.length || (x == 0 && y == 0) || brd[y][x] != 0)
+	    return false;
+	System.out.println(toString(brd));
+	wait(20);
+	brd[y][x] = currentMoveNumber;
+	if(currentMoveNumber == brd.length*brd.length - 1){
+	    board = brd;
+	    return true;
+	}
+	return(solve(brd, x-1, y-2, currentMoveNumber+1) || solve(brd, x+1, y-2, currentMoveNumber+1) || solve(brd, x-1, y+2, currentMoveNumber+1) || solve(brd, x+1, y+2, currentMoveNumber+1) || solve(brd, x-2, y-1, currentMoveNumber+1) || solve(brd, x+2, y-1, currentMoveNumber+1) || solve(brd, x-2, y+1, currentMoveNumber+1) || solve(brd, x+2, y+1, currentMoveNumber+1));
     }
 
 
