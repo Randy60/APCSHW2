@@ -49,6 +49,11 @@ public class KnightsTour{
 	    s+=x;
 	    s+="|";
 	}
+	s+="\n";
+	for(int z = 0; z < ar[0].length*6; z++){
+		    s+="-";
+	}
+
 	return clear + hide + go(0,0)+ s + "\n" + show;
     }
     public KnightsTour(int size){
@@ -75,8 +80,7 @@ public class KnightsTour{
 	if(x < 0 || x >= board.length || y < 0 || y >= board.length || board[y][x] != 0)
 	    return false;
 	//	if(currentMoveNumber > 60)
-	//System.out.println(currentMoveNumber);
-	//wait();
+	//System.out.println(toString());
 	board[y][x] = currentMoveNumber;
 	if(currentMoveNumber == (board.length*board.length)){
 	    return true;
