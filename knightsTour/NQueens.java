@@ -10,8 +10,16 @@ public class NQueens{
 	final static String show =  "\033[?25h";
 
 	//instance variable
-    private char[][]board;
-
+    public char[][]board;
+    public NQueens(int a){
+	board = new char[a][a];
+	for(int i = 0; i < a*a; i++){
+	    board[i/board.length][i%board.length] = '-';
+	}
+	int v = solve(0);
+	System.out.println(toString());
+	System.out.println(v);
+    }
 
 		//terminal specific character to move the cursor
     private String go(int x,int y){
@@ -25,6 +33,7 @@ public class NQueens{
 				catch (InterruptedException e) {
 				}
     }
+ 
     public String toString(){
 	return toString(board);
     }
@@ -33,31 +42,68 @@ public class NQueens{
 	for(int i = 0; i < ar.length*ar[0].length; i++){
 	    if(i%ar.length == 0){
 		s+="\n";
-		for(int z = 0; z < ar[0].length*6; z++){
+		for(int z = 0; z < ar[0].length*3; z++){
 		    s+="-";
 		}
 		s+="\n";
 	    }
 	    s+="|";
-	    s+=x;
+	    s+=ar[i/ar.length][i%ar.length];
 	    s+="|";
 	}
 	s+="\n";
-	for(int z = 0; z < ar[0].length*6; z++){
+	for(int z = 0; z < ar[0].length*3; z++){
 		    s+="-";
 	}
 
 	return clear + hide + go(0,0)+ s + "\n" + show;
     }
     public int solve(int at){
-	if(at == board.length*board.length + 1)
-	    return 0;
-	for(int i = at%board.length; i >= 0; i--){
-	    if(board[at/board.length][i] == 'Q')
+	/*if(board.length > at/board.length && board.length > at%board.length){
+	    char was = board[at/board.length][at%board.length];
+	    board[at/board.length][at%board.length] = 'h';
+	    System.out.println(toString());
+	    wait(100);
+	    board[at/board.length][at%board.length] = was;
+	    }*/
+	if(at >= board.length*board.length){
+	    int a = 0;
+	    for(int i = at-1; i >= 0; i--){
+		if(board[i/board.length][i%board.length] == 'Q')
+		    a++;
+	    }
+	    return a;
+	}
+	if(board[at/board.length][at%board.length] != '-')
+	    return solve(at+1);
+	int x = at%board.length;
+	int y = at/board.length;
+	for(int i = 0; i < board.length; i++){
+	    if(x >= i && board[y][x-i] == 'Q')
+		return solve(at+1);
+	    if(y >= i && board[y-i][x] == 'Q')
+		return solve(at+1);
+	    //if(x+i < board.length && board[y][x+i] == 'Q')
+	    //return solve(at+1);
+	    //if(y+i < board.length && board[y+i][x] == 'Q')
+	    //return solve(at+1);
+	    //if(y+i < board.length && x+i < board.length && board[y+i][x+i] == 'Q')
+	    //return solve(at+1);
+	    if(y+i < board.length && x >= i && board[y+i][x-i] == 'Q')
+		return solve(at+1);
+	    if(y >= i && x+i < board.length && board[y-i][x+i] == 'Q')
+		return solve(at+1);
+	    if(y >= i && x >= i && board[y-i][x-i] == 'Q')
 		return solve(at+1);
 	}
-	for(int i = at/board.length; i >= 0; i--){
-	    if(board[i][at%board.length] == 'Q')
-		return solve(at+1);
+	board[y][x] = 'Q';
+	int with = solve(at+1);
+	if(with == board.length)
+	    return with;
+	for(int i = at; i < board.length * board.length; i++){
+	    board[i/board.length][i%board.length] = '-';
 	}
-	for(int i = at%board.length; i >= 0 && at/board.length+i > 
+	return solve(at+1);
+    }
+}
+	    
