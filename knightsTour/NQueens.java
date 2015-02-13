@@ -38,20 +38,27 @@ public class NQueens{
 	return toString(board);
     }
     public String toString(char[][] ar){
-	String s = "\n";
+	String s = "\n"+" ";
+	for(int i = 0; i < board.length; i++){
+	    s+=" "+i;
+	    if(i < 10)
+		s+=" ";
+	}
 	for(int i = 0; i < ar.length*ar[0].length; i++){
 	    if(i%ar.length == 0){
-		s+="\n";
+		s+="\n" + "  ";
 		for(int z = 0; z < ar[0].length*3; z++){
 		    s+="-";
 		}
-		s+="\n";
+		s+="\n" + i/ar.length;
+		if(i/ar.length < 10)
+		    s+=" ";
 	    }
 	    s+="|";
 	    s+=ar[i/ar.length][i%ar.length];
 	    s+="|";
 	}
-	s+="\n";
+	s+="\n"+"  ";
 	for(int z = 0; z < ar[0].length*3; z++){
 		    s+="-";
 	}

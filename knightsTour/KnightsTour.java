@@ -30,13 +30,16 @@ public class KnightsTour{
     }
     public String toString(int[][] ar){
 	String s = "\n";
+	for(int i = 0; i < board.length; i++){
+	    s+="   "+i+"  ";
+	}
 	for(int i = 0; i < ar.length*ar[0].length; i++){
 	    if(i%ar.length == 0){
-		s+="\n";
+		s+="\n"+" ";
 		for(int z = 0; z < ar[0].length*6; z++){
 		    s+="-";
 		}
-		s+="\n";
+		s+="\n" + i/ar.length;
 	    }
 	    s+="|";
 	    int x = ar[i/ar.length][i%ar.length];
