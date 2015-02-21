@@ -105,7 +105,7 @@ public class NQueens{
 	}
 	board[y][x] = 'Q';
 	int with = solve(at+1);
-	if(with == board.length)
+	if(with == board.length || board.length < 4)
 	    return with;
 	for(int i = at; i < board.length * board.length; i++){
 	    board[i/board.length][i%board.length] = '-';
