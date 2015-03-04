@@ -1,19 +1,46 @@
+import java.util.*;
 public class Sorts{
-    
+    public static void main(String[]args){
+	int i = 100000;
+	if(args.length > 0){
+	    i = Integer.parseInt(args[0]);
+	}
+	int[]ary=new int[i];
+	Random r = new Random(234141);
+	for(int j = 0; j < ary.length; j++){
+	    ary[j] = r.nextInt(10000)-5000;
+	}
+	System.out.println(check(ary));
+	mergeSort(ary);
+	System.out.println(check(ary));
+
+    }
+    public static boolean check(int[] ar){
+	 for(int i = 0; i < ar.length - 1; i++){
+	     if(ar[i] - ar[i+1] > 0){
+		 return false;
+	     }
+	 }
+	 return true;
+     }
     public static void mergeSort(int[] ar){
-	if(ar.length <= 64){
+	if(ar.length < 64){
 	    insertion(ar);
 	}else{
 	    int[] ar1 = new int[ar.length/2];
 	    int[] ar2 = new int[ar.length - ar.length/2];
+	    boolean n = true;
 	    int i = 0;
-	    while(i < ar1.length){
-		ar1[i]= ar[i];
-		i++;
-	    }
-	    i = 0;
-	    while(i < ar2.length){
-		ar2[i] = ar[i + ar1.length - 1];
+	    int i1 = 0;
+	    int i2 = 0;
+	    while(i < ar.length){
+		if(n = !n){
+		    ar1[i1] = ar[i];
+		    i1++;
+		}else{
+		    ar2[i2] = ar[i];
+		    i2++;
+		}
 		i++;
 	    }
 	    mergeSort(ar1);
@@ -51,7 +78,7 @@ public class Sorts{
 		int i = ar[x];
 		ar[x] = ar[x+1];
 		ar[x+1] = i;
-		if(x>0){
+	 	if(x>0){
 		    x--;
 		}
 	    }
