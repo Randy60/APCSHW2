@@ -66,6 +66,7 @@ public class NQueens{
 	return "Higgins.Randolph";
     }
     public boolean solve(int a){
+	board[0][a] = 'Q';
 	return salve(a) == board.length;
     }
     public boolean solve(){
