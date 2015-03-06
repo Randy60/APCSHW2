@@ -2,21 +2,21 @@ import java.util.*;
 public class quickSelect{
     public static void main(String[]args){
 	Random r = new Random();
-	int[] ar = new int[10];
+	int[]ar = new int[10];
 	int i = 0;
 	while(i < ar.length){
 	    ar[i] = r.nextInt(200);
 	    i++;
 	}
 	System.out.println(Arrays.toString(ar));
-	System.out.println(pivotFind(ar, 4));
+	ar = pivot(ar,0,10);
 	System.out.println(Arrays.toString(ar));
-	Arrays.sort(ar);
-	System.out.println(Arrays.toString(ar));
-	System.out.println(ar[4]);
+	//Arrays.sort(ar);
+	//System.out.println(Arrays.toString(ar));
+	//System.out.println(ar[4]);
     }
 
-
+    /*
     public static int pivotFind(int[]ary, int find){
 	int start = 0;
 	int end = ary.length;
@@ -34,8 +34,8 @@ public class quickSelect{
 	}
 	return ary[now];
     }
-    
-    public static int partition(int[]ary, int Si, int Ei){
+    */
+    public static int[] pivot(int[]ary, int Si, int Ei){
 	Random r = new Random();
 	int[] D = new int[ary.length];
 	for(int i = 0; i < ary.length; i++){
@@ -43,10 +43,11 @@ public class quickSelect{
 		D[i] = ary[i];
 	    }
 	}
-	int pivot = r.nextInt(Ei-Si)+Si;
+	int pivot = Si + r.nextInt(Ei-Si);
 	int start = Si;
 	int end = Ei - 1;
 	for(int i = Si; i < Ei; i++){
+	    System.out.println(Arrays.toString(D));
 	    if(ary[i] != ary[pivot]){
 		if(ary[i] < ary[pivot]){
 		    D[start]=ary[i];
@@ -69,6 +70,6 @@ public class quickSelect{
 	}
 	D[start] = ary[pivot];
 	ary = D;
-	return start;
+	System.out.println(Arrays.toString(ary));
     }
 }
