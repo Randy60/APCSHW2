@@ -13,7 +13,7 @@ public class Sorts{
 	}
 	System.out.println(check(ary));
 	Arrays.sort(ary);
-	//mergeSort(ary);
+	//mergeSort(ary);y
 	System.out.println(check(ary));
 
     }
