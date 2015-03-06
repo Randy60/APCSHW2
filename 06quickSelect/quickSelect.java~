@@ -1,0 +1,43 @@
+import java.util.*;
+public class quickSelect{
+
+    public static int find(int[]ary, int num){
+	Random r = new Random();
+	int start = 0;
+	int end = ary.length;
+	boolean unfound = true;
+	int[]twin = ary;
+	while(unfound){
+	    int pivot = r.nextInt(end-start)+start;
+	    int to = start;
+	    int from = end;
+	    for(int i = start; i < pivot; i++){
+		if(ary[i] < ary[pivot]){
+		    twin[to] = ary[i];
+		    to++;
+		}else{
+		    twin[from] = ary[i];
+		    from--;
+		}
+	    }
+	    for(int i = pivot+1; i < end; i++){
+		if(ary[i] < ary[pivot]){
+		    twin[to] = ary[i];
+		    to++;
+		}else{
+		    twin[from] = ary[i];
+		    from--;
+		}
+	    }
+	    twin[to] = ary[pivot];
+	    if(to == (num - 1)){
+		return ary[pivot];
+	    }
+	    if(to > (num - 1)){
+		end = to;
+	    }else{
+		start = to;
+	    }
+	    ary = twin;
+	}
+}
