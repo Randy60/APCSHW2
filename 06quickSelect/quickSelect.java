@@ -57,7 +57,7 @@ public class quickSelect{
 	if(num < start){
 	    return quickFind(D, Si, start, num);
 	}
-	return quickFind(D, start, Ei, num);
+	return quickFind(D, start+1, Ei, num);
     }
     public static boolean check(int[] ar){
 	for(int i = 0; i < ar.length - 1; i++){
