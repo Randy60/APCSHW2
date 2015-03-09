@@ -15,6 +15,9 @@ public class quickSelect{
 	//System.out.println(Arrays.toString(ar));
 	//System.out.println(ar[4]);
     }
+    public static int quickSelect(int[]ary, int num){
+	return quickSelect(ary, 0, ary.length, num);
+    }
     public static int quickSelect(int[]ary, int Si, int Ei, int num){
 	Random r = new Random();
 	int pivot = r.nextInt(Ei-Si) + Si;
