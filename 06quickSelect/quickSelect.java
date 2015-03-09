@@ -15,7 +15,7 @@ public class quickSelect{
 	//System.out.println(Arrays.toString(ar));
 	//System.out.println(ar[4]);
     }
-    public static void partition(int[]ary,int Si, int Ei){
+    public static int quickFind(int[]ary, int Si, int Ei, int num){
 	Random r = new Random();
 	int pivot = r.nextInt(Ei-Si) + Si;
 	int[] D = new int[ary.length];
@@ -51,6 +51,13 @@ public class quickSelect{
 	    }
 	}
 	D[start] = ary[pivot];
+	if(start == num){
+	    return D[start];
+	}
+	if(num < start){
+	    return quickFind(D, Si, start, num);
+	}
+	return quickFind(D, start, Ei, num);
     }
     public static boolean check(int[] ar){
 	for(int i = 0; i < ar.length - 1; i++){
