@@ -2,20 +2,23 @@ import java.util.*;
 public class quickSelect{
     public static void main(String[]args){
 	Random r = new Random();
-	int[]ar = new int[10000];
+	int[]ar = new int[100000];
 	int i = 0;
 	while(i < ar.length){
-	    ar[i] = r.nextInt(2000)-1000;
+	    ar[i] = r.nextInt(20)-10;
 	    i++;
 	}
 	System.out.println(check(ar));
-	ar = pivot(ar, 0, ar.length, 5);
+	ar = quickSort(ar);
 	System.out.println(check(ar));
 	//Arrays.sort(ar);
 	//System.out.println(Arrays.toString(ar));
 	//System.out.println(ar[4]);
     }
-    public static void partition(int[]ary,int Si, int Ei){
+    public static int quickSelect(int[]ary, int num){
+	return quickSelect(ary, 0, ary.length, num);
+    }
+    public static int quickSelect(int[]ary, int Si, int Ei, int num){
 	Random r = new Random();
 	int pivot = r.nextInt(Ei-Si) + Si;
 	int[] D = new int[ary.length];
@@ -51,6 +54,13 @@ public class quickSelect{
 	    }
 	}
 	D[start] = ary[pivot];
+	if(start == num){
+	    return D[start];
+	}
+	if(num < start){
+	    return quickSelect(D, Si, start, num);
+	}
+	return quickSelect(D, start+1, Ei, num);
     }
     public static boolean check(int[] ar){
 	for(int i = 0; i < ar.length - 1; i++){
@@ -77,6 +87,7 @@ public class quickSelect{
 	//int pivot = Si + r.nextInt(Ei-Si);
 	int start = Si;
 	int end = Ei - 1;
+	boolean n = false;
 	for(int i = Si; i < Ei; i++){
 	    //  System.out.println(Arrays.toString(D));
 	    if(i != pivot){
@@ -85,7 +96,7 @@ public class quickSelect{
 		    start++;
 		}else{
 		    if(ary[i] == ary[pivot]){
-			if(i%2 == 1){
+			if(n = !n){
 			    D[start]=ary[i];
 			    start++;
 			}else{
