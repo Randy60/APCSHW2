@@ -1,0 +1,30 @@
+public class MyLinkedList{
+    private LNode head;
+    public String toString(){
+	return head.toString();
+    }
+    public void remove(int n){
+	if(n == 0)
+	    head = head.next;
+	else
+	    head.remove(n);
+    }
+    public void add(int n, Object c){
+	if(n == 0){
+	    LNode r = new LNode(c, head);
+	    head = r;
+	}else{
+	    head.add(n, c);
+	}
+    }
+    public Object get(int n){
+	return head.get(n);
+    }
+    public void set(int n, Object o){
+	head.set(n, o);
+    }
+    public int size(){
+	return head.size();
+    }
+}
+	    

@@ -4,10 +4,17 @@ public class LNode{
     public LNode(Object n){
 	value = n;
     }
+    public LNode(Object n, LNode x){
+	value = n;
+	next = x;
+    }
     public void remove(int n){
 	if(n <= 1){
 	    next = next.next;
 	}else{
+	    if(next == null){
+		throw new IndexOutOfBoundsException();
+	    }
 	    next.remove(n-1);
 	}
     }
@@ -17,8 +24,16 @@ public class LNode{
 	    r.next = next;
 	    next = r;
 	}else{
+	    if(next == null){
+		throw new IndexOutOfBoundsException();
+	    }
 	    next.add(--n, c);
 	}
+    }
+    public LNode getNext(){
+	if(next == null)
+	    throw new IndexOutOfBoundsException();
+	return next;
     }
     public Object get(int n){
 	if(n == 0){
@@ -31,6 +46,8 @@ public class LNode{
 	if(n == 0){
 	    value = o;
 	}else{
+	    if(next == null)
+		throw new IndexOutOfBoundsException();
 	    next.set(--n, o);
 	}
     }
