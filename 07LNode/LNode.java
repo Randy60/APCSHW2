@@ -41,4 +41,13 @@ public class LNode{
 	    return 1+next.size();
 	}
     }
+    public String toString(int a){
+	if(next == null)
+	    return ""+value+"]";
+	else
+	    return ""+value+","+next.toString(0);
+    }
+    public String toString(){
+	return "["+toString(0);
+    }
 }
