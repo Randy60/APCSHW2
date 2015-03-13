@@ -67,4 +67,13 @@ public class LNode{
     public String toString(){
 	return "["+toString(0);
     }
+    public int indexOf(Object o){
+	if(value == o){
+	    return 1;
+	}
+	if(next == null){
+	    throw new NullPointerException();
+	}
+	return 1 + next.indexOf(o);
+    }
 }

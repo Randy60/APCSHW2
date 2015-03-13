@@ -1,18 +1,44 @@
 public class MyLinkedList{
     private LNode head;
+    public int size = 0;
     public String toString(){
+	if(size == 0){
+	    return "[]";
+		}
 	return head.toString();
     }
-    public void remove(int n){
+    public MyLinkedList(){
+	head = null;
+	fin = head;
+	size = 0;
+    }
+    private LNode fin;
+    public boolean remove(int n){
+	size--;
 	if(n == 0)
 	    head = head.getNext();
 	else
 	    head.remove(n);
+	return true;
     }
     public boolean add(Object o){
-	return add(0, o);
+	if(size == 0){
+	    head = new LNode(o);
+	    fin = head;
+	}else{
+	    fin.add(0, o);
+	    fin = fin.getNext();
+	}
+	    size++;
+	    return true;
     }
     public boolean add(int n, Object c){
+	if(n == size){
+	    fin.add(0, c);
+	    fin = fin.getNext();
+	    size++;
+	}
+	size++;
 	if(n < 0)
 	    throw new IndexOutOfBoundsException();
 	if(n == 0){
@@ -34,7 +60,10 @@ public class MyLinkedList{
 	head.set(n, o);
     }
     public int size(){
-	return head.size();
+	return size;
+    }
+    public int indexOf(Object o){
+	return head.indexOf(o);
     }
 }
 	    
