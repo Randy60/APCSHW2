@@ -1,10 +1,10 @@
-public class LNode{
-    private int value;
+public class LNode<T>{
+    private T value;
     private LNode next;
-    public LNode(int n){
+    public LNode(T n){
 	value = n;
     }
-    public LNode(int n, LNode x){
+    public LNode(T n, LNode x){
 	value = n;
 	next = x;
     }
@@ -18,7 +18,7 @@ public class LNode{
 	    next.remove(n-1);
 	}
     }
-    public void add(int n, int c){
+    public void add(int n, T c){
 	if(n <= 1){
 	    LNode r = new LNode(c);
 	    r.next = next;
@@ -30,19 +30,19 @@ public class LNode{
 	    next.add(--n, c);
 	}
     }
-    public LNode getNext(){
+    public LNode<T> getNext(){
 	if(next == null)
 	    throw new IndexOutOfBoundsException();
 	return next;
     }
-    public int get(int n){
+    public T get(int n){
 	if(n == 0){
 	    return value;
 	}else{
 	    return next.get(--n);
 	}
     }
-    public void set(int n, int o){
+    public void set(int n, T o){
 	if(n == 0){
 	    value = o;
 	}else{
@@ -67,7 +67,7 @@ public class LNode{
     public String toString(){
 	return "["+toString(0);
     }
-    public int indexOf(int o){
+    public int indexOf(T o){
 	if(value == o){
 	    return 1;
 	}

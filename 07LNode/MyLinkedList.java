@@ -1,6 +1,9 @@
-public class MyLinkedList{
-    private LNode head;
+public class MyLinkedList<T> implements Iterable<T>{
+    private LNode<T> head;
     public int size = 0;
+    // public class MLLIterator<T> implements Iterator<T>{
+	
+    //}
     public String toString(){
 	if(size == 0){
 	    return "[]";
@@ -21,7 +24,7 @@ public class MyLinkedList{
 	    head.remove(n);
 	return true;
     }
-    public boolean add(int o){
+    public boolean add(T o){
 	if(size == 0){
 	    head = new LNode(o);
 	    fin = head;
@@ -32,7 +35,7 @@ public class MyLinkedList{
 	    size++;
 	    return true;
     }
-    public boolean add(int n, int c){
+    public boolean add(int n, T c){
 	if(n == size){
 	    fin.add(0, c);
 	    fin = fin.getNext();
@@ -49,12 +52,12 @@ public class MyLinkedList{
 	}
 	return true;
     }
-    public int get(int n){
+    public T get(int n){
 	if(n < 0)
 	    throw new IndexOutOfBoundsException();
 	return head.get(n);
     }
-    public void set(int n, int o){
+    public void set(int n, T o){
 	if(n<0)
 	    throw new IndexOutOfBoundsException();
 	head.set(n, o);
@@ -62,7 +65,7 @@ public class MyLinkedList{
     public int size(){
 	return size;
     }
-    public int indexOf(int o){
+    public int indexOf(T o){
 	return head.indexOf(o);
     }
 }
