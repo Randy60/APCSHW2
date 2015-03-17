@@ -21,7 +21,7 @@ public class MyLinkedList{
 	    head.remove(n);
 	return true;
     }
-    public boolean add(Object o){
+    public boolean add(int o){
 	if(size == 0){
 	    head = new LNode(o);
 	    fin = head;
@@ -32,7 +32,7 @@ public class MyLinkedList{
 	    size++;
 	    return true;
     }
-    public boolean add(int n, Object c){
+    public boolean add(int n, int c){
 	if(n == size){
 	    fin.add(0, c);
 	    fin = fin.getNext();
@@ -49,12 +49,12 @@ public class MyLinkedList{
 	}
 	return true;
     }
-    public Object get(int n){
+    public int get(int n){
 	if(n < 0)
 	    throw new IndexOutOfBoundsException();
 	return head.get(n);
     }
-    public void set(int n, Object o){
+    public void set(int n, int o){
 	if(n<0)
 	    throw new IndexOutOfBoundsException();
 	head.set(n, o);
@@ -62,7 +62,7 @@ public class MyLinkedList{
     public int size(){
 	return size;
     }
-    public int indexOf(Object o){
+    public int indexOf(int o){
 	return head.indexOf(o);
     }
 }
