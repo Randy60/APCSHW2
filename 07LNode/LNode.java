@@ -1,6 +1,6 @@
 public class LNode<T>{
     private T value;
-    private LNode next;
+    private LNode<T> next;
     public LNode(T n){
 	value = n;
     }

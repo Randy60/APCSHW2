@@ -1,9 +1,25 @@
+import java.util.*;
 public class MyLinkedList<T> implements Iterable<T>{
     private LNode<T> head;
     public int size = 0;
-    // public class MLLIterator<T> implements Iterator<T>{
-	
-    //}
+    public Iterator<T>iterator(){
+	//this is straight out of StackOverflow
+	Iterator<T> it = new Iterator<T>(){
+	    private LNode<T> here = head;
+	    public boolean hasNext(){
+		return !(here.getNext() == null);
+	    }
+	    public T next(){
+		if(hasNext())
+		    here = here.getNext();
+		return here.get(0);
+	    }
+	    public void remove(){
+		throw new UnsupportedOperationException();
+	    }
+	};
+	return it;
+    }
     public String toString(){
 	if(size == 0){
 	    return "[]";
@@ -15,7 +31,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	fin = head;
 	size = 0;
     }
-    private LNode fin;
+    private LNode<T> fin;
     public boolean remove(int n){
 	size--;
 	if(n == 0)
@@ -26,7 +42,7 @@ public class MyLinkedList<T> implements Iterable<T>{
     }
     public boolean add(T o){
 	if(size == 0){
-	    head = new LNode(o);
+	    head = new LNode<T>(o);
 	    fin = head;
 	}else{
 	    fin.add(0, o);
@@ -45,7 +61,7 @@ public class MyLinkedList<T> implements Iterable<T>{
 	if(n < 0)
 	    throw new IndexOutOfBoundsException();
 	if(n == 0){
-	    LNode r = new LNode(c, head);
+	    LNode<T> r = new LNode<T>(c, head);
 	    head = r;
 	}else{
 	    head.add(n, c);
