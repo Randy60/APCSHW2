@@ -1,0 +1,8 @@
+public class SNode<T>{
+    public T value;
+    private SNode next;
+    public SNode(T a, SNode b){
+	value = a;
+	next = b;
+    }
+}

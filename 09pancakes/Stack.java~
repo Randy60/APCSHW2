@@ -1,0 +1,14 @@
+public class Stack<T>{
+    public SNode<T> head;
+    public T peek(){
+	return head.getValue();
+    }
+    public void push(T a){
+	head = new SNode(a, head);
+    }
+    public T pop(){
+	T a = new T peek();
+	head = head.getNext();
+	return a;
+    }
+}
