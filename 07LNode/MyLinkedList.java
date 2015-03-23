@@ -2,23 +2,27 @@ import java.util.*;
 public class MyLinkedList<T> implements Iterable<T>{
     private LNode<T> head;
     public int size = 0;
-    public Iterator<T>iterator(){
-	//this is straight out of StackOverflow
-	Iterator<T> it = new Iterator<T>(){
-	    private LNode<T> here = head;
-	    public boolean hasNext(){
-		return !(here.getNext() == null);
-	    }
-	    public T next(){
-		if(hasNext())
-		    here = here.getNext();
+    private class ThisIterator<T> implements Iterator<T>{
+	private LNode<T> here;
+	public ThisIterator(LNode<T> start){
+	    here = start;
+	}
+	public boolean hasNext(){
+	    return here.getNext()!=null;
+	}
+	public T next(){
+	    if(hasNext()){
+		here = here.getNext();
 		return here.get(0);
 	    }
-	    public void remove(){
-		throw new UnsupportedOperationException();
-	    }
-	};
-	return it;
+	    throw new NoSuchElementException();
+	}
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}   
+    }
+    public Iterator<T> iterator(){
+	return new ThisIterator<T>(head);
     }
     public String toString(){
 	if(size == 0){

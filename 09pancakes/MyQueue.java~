@@ -1,0 +1,12 @@
+public class MyQueue<T>{
+    private QNode head,tail;
+    public MyQueue<T>(){
+	head = null;
+	tail = null;
+    }
+    public void enQueue(T o){
+	if(tail == null){
+	    tail = new QNode<T>(o);
+	    head = tail;
+	}else{
+	    tail.add(

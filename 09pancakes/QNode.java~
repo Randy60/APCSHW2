@@ -1,0 +1,17 @@
+public class QNode<T>{
+    public T value;
+    private QNode next;
+    public QNode(T a, QNode b){
+	value = a;
+	next = b;
+    }
+    public void add(T o){
+	next = new QNode<T>(o, next);
+    }
+    public T getValue(){
+	return value;
+    }
+    public QNode<T> getNext(){
+	return next;
+    }
+}
