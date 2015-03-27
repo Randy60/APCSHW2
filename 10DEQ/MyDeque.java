@@ -16,7 +16,7 @@ public class MyDeque<T>{
 	if((tail+1)%holder.length == head){
 	    doube();
 	}
-	head = (head-1)%holder.length;
+	head = Math.abs((head - 1)%holder.length);
 	holder[head] = o;
     }
     public void addLast(T o){
@@ -37,7 +37,7 @@ public class MyDeque<T>{
 	if(head == tail){
 	    throw new NullPointerException();
 	}
-	tail = (tail-1)%holder.length;
+	tail = Math.abs((tail-1)%holder.length);
 	return (T)holder[tail];
     }
     public T getFirst(){
