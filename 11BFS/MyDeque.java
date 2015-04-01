@@ -12,6 +12,9 @@ public class MyDeque<T>{
 	tail = holder.length - 1;
 	holder = rec;
     }
+    public boolean hasNext(){
+	return tail-head == 0;
+    }
     public void addFirst(T o){
 	if((tail+1)%holder.length == head){
 	    doube();

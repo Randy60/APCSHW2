@@ -29,8 +29,25 @@ public class Maze{
 	}
 	return s;
     }
-    public boolean solveBFS(boolean animate){
-	public queue holder = new queue<int[][2]>();
+    public boolean solve(boolean animate, boolean bfs){
+	MyDeque<int[]> Frontier = new MyDeque<int[]>();
+	Frontier.addFirst(start);
+	while(1 == 1){
+	    int[] next;
+	    if(bfs){
+		next = Frontier.removeFirst();
+	    }else{
+		next = Frontier.removeLast();
+	    }
+	    if(Maze[next[1]][next[0]] != '*'){
+		if(animate){
+		    wait(20);
+		    System.out.println(clear+toString);
+		}
+		if(Maze[next[1]][next[0]] == 'E'){
+		    return true;
+		}
+	    }
     }
 
     /**Solve the maze using a frontier in a DFS manner. 
@@ -44,5 +61,4 @@ public class Maze{
     }
 //public boolean solveDFS(){
 //return solveDFS(false);
-    }
 }
