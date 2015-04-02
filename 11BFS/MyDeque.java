@@ -30,9 +30,9 @@ public class MyDeque<T>{
 	tail = (tail+1)%holder.length;
     }
     public T removeFirst(){
-	if(head == tail){
-	    throw new NullPointerException();
-	}
+	//if(tail-head == -1){
+	//  throw new NullPointerException();
+	//}
 	head = (head+1)%holder.length;
 	return (T)holder[(head-1)%holder.length];
     }

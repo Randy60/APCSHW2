@@ -82,13 +82,15 @@ public class Maze{
     public boolean solve(boolean animate, boolean bfs){
 	MyDeque<CNode> Frontier = new MyDeque<CNode>();
 	Frontier.addFirst(new CNode(startx, starty, null));
-	while(Frontier.hasNext()){
-	    CNode net;
+	while(true){
+	    CNode net = null;
 	    if(bfs){
+		//System.out.println(Frontier.removeFirst().getX());
 		net = Frontier.removeFirst();
 	    }else{
 		net = Frontier.removeLast();
 	    }
+	    System.out.println(""+net.getX()+","+net.getY());
 	    if(Maze[net.getY()][net.getX()] != '*' && Maze[net.getY()][net.getX()] != '-'){
 		if(animate){
 		    wait(20);
@@ -115,7 +117,7 @@ public class Maze{
 		Frontier.addLast(new CNode(net.getX(), net.getY()-1, net));
 	    }
 	}
-	return false;
+	//	return false;
     }
 }
     /**Solve the maze using a frontier in a DFS manner. 
