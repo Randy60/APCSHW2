@@ -13,7 +13,7 @@ public class MyDeque<T>{
 	holder = rec;
     }
     public boolean hasNext(){
-	return tail-head == 0;
+	return tail-head == -1;
     }
     public void addFirst(T o){
 	if((tail+1)%holder.length == head){

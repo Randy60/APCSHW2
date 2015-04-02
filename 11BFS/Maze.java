@@ -83,7 +83,6 @@ public class Maze{
 	MyDeque<CNode> Frontier = new MyDeque<CNode>();
 	Frontier.addFirst(new CNode(startx, starty, null));
 	while(Frontier.hasNext()){
-	    System.out.println(1);
 	    CNode net;
 	    if(bfs){
 		net = Frontier.removeFirst();
