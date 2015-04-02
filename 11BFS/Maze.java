@@ -49,18 +49,11 @@ public class Maze{
     public char[][] Maze;
     public String toString(){
 	String s = "";
-	for(int i = 0; i < Maze[0].length; i++){
-	    s+="%";
-	}
 	for(int i = 0; i < Maze.length; i++){
-	    s+="\n"+"%";
+	    s+="\n";
 	    for(int j = 0; j < Maze[i].length; j++){
 		s+=Maze[i][j];
 	    }
-	    s+="%";
-	}
-	for(int i = 0; i < Maze[0].length; i++){
-	    s+="%";
 	}
 	return s;
     }
@@ -68,37 +61,39 @@ public class Maze{
 	MyDeque<int[]> Frontier = new MyDeque<int[]>();
 	Frontier.addFirst(start);
 	while(1 == 1){
-	    int[] next;
+	    int[] net = new int[10];
 	    if(bfs){
-		next = Frontier.removeFirst();
+		net = new int[Frontier.getFirst().length];
+		net = Frontier.removeFirst();
 	    }else{
-		next = Frontier.removeLast();
+		net = new int[Frontier.getLast().length];
+		net = Frontier.removeLast();
 	    }
-	    if(Maze[next[0]][next[1]] != '*' && Maze[next[0]][next[1]] != '-'){
+	    if(Maze[net[0]][net[1]] != '*' && Maze[net[0]][net[1]] != '-'){
 		if(animate){
 		    wait(20);
 		    System.out.println(clear);
 		    System.out.println(toString());
 		}
-		if(Maze[next[0]][next[1]] == 'E'){
+		if(Maze[net[0]][net[1]] == 'E'){
 		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
 			if(Maze[i/Maze.length][i%Maze.length] == '-')
 			    Maze[i/Maze.length][i%Maze.length] = ' ';
 		    }
 		    for(int i = 2; i < Maze.length/2 - 1; i++){
-			Maze[next[i]][next[++i]] = '$';
+			Maze[net[i]][net[++i]] = '$';
 			wait(100);
 			System.out.println(clear+toString());
 		    }
 		    return true;
 		}
-		Maze[next[0]][next[1]] = '-';
-		int[] adder = new int[next.length+2];
+		Maze[net[0]][net[1]] = '-';
+		int[] adder = new int[net.length+2];
 		for(int i = 2; i < adder.length; i++){
-		    adder[i] = next[i-2];
+		    adder[i] = net[i-2];
 		}
-		adder[0] = next[0]+1;
-		adder[1] = next[1]+1;
+		adder[0] = net[0]+1;
+		adder[1] = net[1]+1;
 		Frontier.addLast(adder);
 		adder[0]-=2;
 		Frontier.addLast(adder);
