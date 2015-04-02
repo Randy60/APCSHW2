@@ -10,7 +10,7 @@ public class Maze{
 				}
     }
     private int maxx, maxy;
-    public int[] start = new int[2];
+    public int startx, starty;
     public Maze(String filename){
 	//read the whole maze into a single string first
 	String ans = "";
@@ -41,8 +41,8 @@ public class Maze{
 	    char c = ans.charAt(i);
 	    Maze[i % maxx][i / maxx] = c;
 	    if(c == 'S'){
-		start[1] = i % maxx;
-		start[0] = i / maxx;
+		startx = i % maxx;
+		starty = i / maxx;
 	    }
 	}
     }
@@ -57,52 +57,66 @@ public class Maze{
 	}
 	return s;
     }
+    private class CNode{
+	private int a;
+	private int b;
+	private CNode next;
+	public int getX(){
+	    return a;
+	}
+	public int getY(){
+	    return b;
+	}
+	public CNode getNext(){
+	    return next;
+	}
+	public boolean hasNext(){
+	    return next != null;
+	}
+	public CNode(int x, int y, CNode Paul){
+	    a = x;
+	    b = y;
+	    next = Paul;
+	}
+    }
     public boolean solve(boolean animate, boolean bfs){
-	MyDeque<int[]> Frontier = new MyDeque<int[]>();
-	Frontier.addFirst(start);
-	while(1 == 1){
-	    int[] net = new int[10];
+	MyDeque<CNode> Frontier = new MyDeque<CNode>();
+	Frontier.addFirst(new CNode(startx, starty, null));
+	while(Frontier.hasNext()){
+	    System.out.println(1);
+	    CNode net;
 	    if(bfs){
-		net = new int[Frontier.getFirst().length];
 		net = Frontier.removeFirst();
 	    }else{
-		net = new int[Frontier.getLast().length];
 		net = Frontier.removeLast();
 	    }
-	    if(Maze[net[0]][net[1]] != '*' && Maze[net[0]][net[1]] != '-'){
+	    if(Maze[net.getY()][net.getX()] != '*' && Maze[net.getY()][net.getX()] != '-'){
 		if(animate){
 		    wait(20);
 		    System.out.println(clear);
 		    System.out.println(toString());
 		}
-		if(Maze[net[0]][net[1]] == 'E'){
+		if(Maze[net.getY()][net.getX()] == 'E'){
 		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
 			if(Maze[i/Maze.length][i%Maze.length] == '-')
 			    Maze[i/Maze.length][i%Maze.length] = ' ';
 		    }
-		    for(int i = 2; i < Maze.length/2 - 1; i++){
-			Maze[net[i]][net[++i]] = '$';
+		    while(net.hasNext()){
+			Maze[net.getY()][net.getX()] = '$';
+			net = net.getNext();
 			wait(100);
 			System.out.println(clear+toString());
 		    }
 		    return true;
 		}
-		Maze[net[0]][net[1]] = '-';
-		int[] adder = new int[net.length+2];
-		for(int i = 2; i < adder.length; i++){
-		    adder[i] = net[i-2];
-		}
-		adder[0] = net[0]+1;
-		adder[1] = net[1]+1;
-		Frontier.addLast(adder);
-		adder[0]-=2;
-		Frontier.addLast(adder);
-		adder[1]-=2;
-		Frontier.addLast(adder);
-		adder[0]+=2;
-		Frontier.addLast(adder);
+		Maze[net.getY()][net.getX()] = '-';
+		Frontier.addLast(new CNode(net.getX()+1, net.getY(), net));
+		Frontier.addLast(new CNode(net.getX()-1, net.getY(), net));
+		Frontier.addLast(new CNode(net.getX(), net.getY()+1, net));
+		Frontier.addLast(new CNode(net.getX(), net.getY()-1, net));
 	    }
 	}
+	return false;
     }
 }
     /**Solve the maze using a frontier in a DFS manner. 
