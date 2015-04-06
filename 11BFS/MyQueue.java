@@ -2,8 +2,8 @@ import java.util.*;
 public class MyQueue<T>{
     private QNode<T> head,tail;
     public MyQueue(){
-	head = null;
-	tail = null;
+	head = new QNode<T>(null);
+	tail = head;
     }
     public void enqueue(T o){
 	if(tail == null){
@@ -15,7 +15,7 @@ public class MyQueue<T>{
 	}
     }
     public boolean hasNext(){
-	return (tail.getNext() != null);
+	return (head.getNext() != null);
     }
     public T dequeue(){
 	if(head == null){

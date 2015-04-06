@@ -34,15 +34,15 @@ public class Maze{
 	    e.printStackTrace();
 	    System.exit(0);
 	}
-
+	System.out.println(""+maxx+","+maxy);
 	//copy from the single string to a 2D array
 	Maze = new char[maxx][maxy];
 	for(int i = 0; i < ans.length(); i++){
 	    char c = ans.charAt(i);
-	    Maze[i % maxx][i / maxx] = c;
+	    Maze[i%maxx][i/maxx] = c;
 	    if(c == 'S'){
-		startx = i % maxx;
-		starty = i / maxx;
+		startx = 1;
+		starty = 1;
 	    }
 	}
     }
@@ -74,6 +74,7 @@ public class Maze{
 	    return next != null;
 	}
 	public CNode(int x, int y, CNode Paul){
+	    System.out.println(""+x+","+y);
 	    a = x;
 	    b = y;
 	    next = Paul;
@@ -91,7 +92,7 @@ public class Maze{
 		net = Frontier.dequeue();
 	    }
 	    //Maze[net.getY()][net.getX()] = 'X';
-	    System.out.println(""+Maze[net.getX()][net.getY()]);
+	    System.out.println(""+net.getY()+", "+net.getX());
 	    if(Maze[net.getY()][net.getX()] != '*' || Maze[net.getY()][net.getX()] != '-'){
 		if(animate){
 		    wait(20);
