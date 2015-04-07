@@ -1,6 +1,6 @@
 public class QNode<T>{
     public T value;
-    private QNode next;
+    public QNode next;
     public QNode(T a){
 	value = a;
 	next = null;
@@ -10,6 +10,9 @@ public class QNode<T>{
     }
     public T getValue(){
 	return value;
+    }
+    public void setNext(QNode net){
+	next = net;
     }
     public QNode<T> getNext(){
 	return next;

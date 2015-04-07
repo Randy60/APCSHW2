@@ -57,37 +57,12 @@ public class Maze{
 	}
 	return s;
     }
-    private class CNode{
-	public int a, b;
-	private CNode next;
-	public CNode(int x, int y, CNode Paul){
-	    System.out.println(""+x+","+y);
-	    a = x;
-	    b = y;
-	    next = Paul;
-	}
-	public int getX(){
-	    return a;
-	}
-	public int getY(){
-	    System.out.println(b);
-	    return b;
-	}
-	public CNode getNext(){
-	    return next;
-	}
-	public boolean hasNext(){
-	    return next != null;
-	}
-    }
     public boolean solve(boolean animate, boolean bfs){
-	MyQueue<CNode> Frontier = new MyQueue<CNode>();
-	CNode first = new CNode(startx, starty, null);
-	Frontier.enqueue(first);
-	while(Frontier.hasNext()){
+	MyQueue<CNode> Frontier = new MyQueue<CNode>(new CNode(startx, starty, null));
+	while(true){
 	    CNode net = Frontier.dequeue();
 	    //Maze[net.getY()][net.getX()] = 'X';
-	    System.out.println(net.b);
+	    System.out.println(net.getY());
 	    if(Maze[net.getY()][net.getX()] != '*' || Maze[net.getY()][net.getX()] != '-'){
 		if(animate){
 		    wait(20);
@@ -118,7 +93,6 @@ public class Maze{
 		Frontier.enqueue(dl);
 	    }
 	}
-	return false;
     }
 }
     /**Solve the maze using a frontier in a DFS manner. 

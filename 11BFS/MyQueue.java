@@ -1,17 +1,22 @@
 import java.util.*;
 public class MyQueue<T>{
     private QNode<T> head,tail;
-    public MyQueue(){
+    public MyQueue(T al){
 	head = new QNode<T>(null);
-	tail = head;
+	tail = new QNode<T>(al);
+	head.setNext(tail);
     }
     public void enqueue(T o){
 	if(tail == null){
 	    tail = new QNode<T>(o);
 	    head = tail;
 	}else{
-	    tail.add(o);
-	    tail = tail.getNext();
+	    if(head == null){
+		head = new QNode<T>(o);
+	    }else{
+		tail.add(o);
+		tail = tail.getNext();
+	    }
 	}
     }
     public boolean hasNext(){
