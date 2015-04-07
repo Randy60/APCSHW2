@@ -57,32 +57,42 @@ public class Maze{
 	}
 	return s;
     }
-    public boolean solve(boolean animate, boolean bfs){
-	MyQueue<CNode> Frontier = new MyQueue<CNode>(new CNode(startx, starty, null));
-	while(true){
+    public boolean solveBFS(boolean animate){
+	Queue<CNode> Frontier = new Queue<CNode>(new CNode(startx, starty, null));
+	while(Frontier.hasNext()){
 	    CNode net = Frontier.dequeue();
-	    //Maze[net.getY()][net.getX()] = 'X';
-	    System.out.println(net.getY());
-	    if(Maze[net.getY()][net.getX()] != '*' || Maze[net.getY()][net.getX()] != '-'){
+	    if(Maze[net.getY()][net.getX()] != '#' && Maze[net.getY()][net.getX()] != '-'){
 		if(animate){
-		    wait(20);
+		    wait(100);
 		    System.out.println(clear);
 		    System.out.println(toString());
 		}
+
+
 		if(Maze[net.getY()][net.getX()] == 'E'){
-		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
-			if(Maze[i/Maze.length][i%Maze.length] == '-')
-			    Maze[i/Maze.length][i%Maze.length] = ' ';
+		    if(!animate){
+			return true;
 		    }
+		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
+			if(Maze[i%Maze.length][i/Maze.length] == '-')
+			    Maze[i%Maze.length][i/Maze.length] = ' ';
+		    }
+		    net = net.getNext();
 		    while(net.hasNext()){
-			Maze[net.getY()][net.getX()] = '$';
+			Maze[net.getY()][net.getX()] = '@';
 			net = net.getNext();
 			wait(100);
 			System.out.println(clear+toString());
 		    }
+		    Maze[net.getY()][net.getX()] = 'S';
+		    wait(100);
+		    System.out.println(clear+toString());
 		    return true;
 		}
+
+		if(net.getY() != starty || net.getX() != startx){
 		Maze[net.getY()][net.getX()] = '-';
+		}
 		CNode al = new CNode(net.getX()+1, net.getY(), net);
 		CNode bl = new CNode(net.getX()-1, net.getY(), net);
 		CNode cl = new CNode(net.getX(), net.getY()+1, net);
@@ -93,6 +103,60 @@ public class Maze{
 		Frontier.enqueue(dl);
 	    }
 	}
+	return false;
+    }
+    public boolean solveDFS(boolean animate){
+	Stack<CNode> Frontier = new Stack<CNode>(new CNode(startx, starty, null));
+	Frontier.enqueue(new CNode(startx, starty));
+	while(Frontier.hasNext()){
+	    CNode net = Frontier.dequeue();
+	    if(Maze[net.getY()][net.getX()] != '#' && Maze[net.getY()][net.getX()] != '-'){
+		if(animate){
+		    wait(100);
+		    System.out.println(clear+toString());
+		}
+
+
+		if(Maze[net.getY()][net.getX()] == 'E'){
+		    if(!animate){
+			return true;
+		    }
+		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
+			if(Maze[i%Maze.length][i/Maze.length] == '-')
+			    Maze[i%Maze.length][i/Maze.length] = ' ';
+		    }
+		    net = net.getNext();
+		    while(net.hasNext()){
+			Maze[net.getY()][net.getX()] = '@';
+			net = net.getNext();
+			wait(100);
+			System.out.println(clear+toString());
+		    }
+		    Maze[net.getY()][net.getX()] = 'S';
+		    wait(100);
+		    System.out.println(clear+toString());
+		    return true;
+		}
+
+		if(net.getY() != starty || net.getX() != startx){
+		Maze[net.getY()][net.getX()] = '-';
+		}
+		CNode al = new CNode(net.getX()+1, net.getY(), net);
+		CNode bl = new CNode(net.getX()-1, net.getY(), net);
+		CNode cl = new CNode(net.getX(), net.getY()+1, net);
+		CNode dl = new CNode(net.getX(), net.getY()-1, net);
+		Frontier.enqueue(al);
+		Frontier.enqueue(bl);
+		Frontier.enqueue(cl);
+		Frontier.enqueue(dl);
+	    }
+	}
+	return false;
+    }
+    public boolean solve(boolean BFS, boolean animate){
+	if(BFS)
+	    return solveBFS(animate);
+	return solveDFS(animate);
     }
 }
     /**Solve the maze using a frontier in a DFS manner. 

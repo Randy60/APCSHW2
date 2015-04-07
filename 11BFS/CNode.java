@@ -2,7 +2,6 @@ public class CNode{
     public int a, b;
     private CNode next;
     public CNode(int x, int y, CNode Paul){
-	System.out.println(""+x+","+y);
 	a = x;
 	b = y;
 	next = Paul;
@@ -15,7 +14,6 @@ public class CNode{
 	return a;
     }
     public int getY(){
-	System.out.println(b);
 	return b;
     }
     public CNode getNext(){
