@@ -70,9 +70,6 @@ public class Maze{
 
 
 		if(Maze[net.getY()][net.getX()] == 'E'){
-		    if(!animate){
-			return true;
-		    }
 		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
 			if(Maze[i%Maze.length][i/Maze.length] == '-')
 			    Maze[i%Maze.length][i/Maze.length] = ' ';
@@ -81,12 +78,16 @@ public class Maze{
 		    while(net.hasNext()){
 			Maze[net.getY()][net.getX()] = '@';
 			net = net.getNext();
+			if(animate){
+			    wait(100);
+			    System.out.println(clear+toString());
+			}
+		    }
+		    Maze[net.getY()][net.getX()] = 'S';
+		    if(animate){
 			wait(100);
 			System.out.println(clear+toString());
 		    }
-		    Maze[net.getY()][net.getX()] = 'S';
-		    wait(100);
-		    System.out.println(clear+toString());
 		    return true;
 		}
 
@@ -118,9 +119,6 @@ public class Maze{
 
 
 		if(Maze[net.getY()][net.getX()] == 'E'){
-		    if(!animate){
-			return true;
-		    }
 		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
 			if(Maze[i%Maze.length][i/Maze.length] == '-')
 			    Maze[i%Maze.length][i/Maze.length] = ' ';
@@ -129,12 +127,16 @@ public class Maze{
 		    while(net.hasNext()){
 			Maze[net.getY()][net.getX()] = '@';
 			net = net.getNext();
+			if(animate){
+			    wait(100);
+			    System.out.println(clear+toString());
+			}
+		    }
+		    Maze[net.getY()][net.getX()] = 'S';
+		    if(animate){
 			wait(100);
 			System.out.println(clear+toString());
 		    }
-		    Maze[net.getY()][net.getX()] = 'S';
-		    wait(100);
-		    System.out.println(clear+toString());
 		    return true;
 		}
 
@@ -158,14 +160,72 @@ public class Maze{
 	    return solveBFS(animate);
 	return solveDFS(animate);
     }
+    public int[] solutionCoordinates(){
+	solveBFS(false);
+	int i = 0;
+	int xcor = startx;
+	int ycor = starty;
+	while(Maze[ycor][xcor] != 'E'){
+	    if(Maze[ycor][xcor] == '@'){
+		Maze[ycor][xcor] = '$';
+	    }
+	    i++;
+	    if(Maze[ycor+1][xcor] == '@'|| Maze[ycor+1][xcor] == 'E'){
+		ycor++;
+	    }else{
+		if(Maze[ycor][xcor+1] == '@' || Maze[ycor][xcor+1] == 'E'){
+		    xcor++;
+		}else{
+		    if(Maze[ycor-1][xcor] == '@' || Maze[ycor-1][xcor] == 'E'){
+			ycor--;
+		    }else{
+			if(Maze[ycor][xcor-1] == '@' || Maze[ycor][xcor-1] == 'E'){
+			    xcor--;
+			}
+		    }
+		}
+	    }
+	}
+	int[] ar = new int[i*2];
+	xcor = startx;
+	ycor = starty;
+	i = 0;
+	while(Maze[ycor][xcor] != 'E'){
+	    if(Maze[ycor][xcor] == '$'){
+		Maze[ycor][xcor] = ' ';
+	    }
+	    if(Maze[ycor+1][xcor] == '$'|| Maze[ycor+1][xcor] == 'E'){
+		ycor++;
+		ar[i] = xcor;
+		i++;
+		ar[i] = ycor;
+		i++;
+	    }else{
+		if(Maze[ycor][xcor+1] == '$' || Maze[ycor][xcor+1] == 'E'){
+		    xcor++;
+		    ar[i] = xcor;
+		    i++;
+		    ar[i] = ycor;
+		    i++;
+		}else{
+		    if(Maze[ycor-1][xcor] == '$' || Maze[ycor-1][xcor] == 'E'){
+			ycor--;
+			ar[i] = xcor;
+			i++;
+			ar[i] = ycor;
+			i++;
+		    }else{
+			if(Maze[ycor][xcor-1] == '$' || Maze[ycor][xcor-1] == 'E'){
+			    xcor--;
+			    ar[i] = xcor;
+			    i++;
+			    ar[i] = ycor;
+			    i++;
+			}
+		    }
+		}
+	    }
+	}
+	return ar;
+    }
 }
-    /**Solve the maze using a frontier in a DFS manner. 
-     * When animate is true, print the board at each step of the algorithm.
-     * Replace spaces with x's as you traverse the maze. 
-     */
-    //public boolean solveDFS(boolean animate){    }
-
-    //public boolean solveBFS(){
-    //return solveBFS(false);
-//public boolean solveDFS(){
-//return solveDFS(false);

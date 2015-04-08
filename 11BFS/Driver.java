@@ -1,3 +1,4 @@
+import java.util.*;
 public class Driver{
     public static void main(String[]args){
 	//MyQueue checker = new MyQueue<Integer>();
@@ -5,7 +6,7 @@ public class Driver{
 	//checker.enqueue(3);
 	//System.out.println(""+checker.dequeue()+checker.dequeue());
 	Maze prayer = new Maze("data1.dat");
-	prayer.solve(true, true);
+	System.out.println(Arrays.toString(prayer.solutionCoordinates()));
     }
 }
 				
