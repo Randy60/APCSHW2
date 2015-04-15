@@ -22,4 +22,18 @@ public class CNode{
     public boolean hasNext(){
 	return next != null;
     }
+    public String toString(){
+	if(next == null){
+	    return "("+a+","+b+")";
+	}else{
+	    return "("+a+","+b+")"+next.toString();
+	}
+    }
+    public int size(){
+	if(next == null){
+	    return 1;
+	}else{
+	    return 1+next.size();
+	}
+    }
 }

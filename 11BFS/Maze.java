@@ -63,9 +63,10 @@ public class Maze{
 	    CNode net = Frontier.dequeue();
 	    if(Maze[net.getY()][net.getX()] != '#' && Maze[net.getY()][net.getX()] != '-'){
 		if(animate){
-		    wait(100);
+		    wait(200/net.size());
 		    System.out.println(clear);
 		    System.out.println(toString());
+		    System.out.println("Frontier:"+net.toString());
 		}
 
 
@@ -227,5 +228,63 @@ public class Maze{
 	    }
 	}
 	return ar;
+    }
+    public boolean solveBestFS(boolean animate){
+	pQueue<CNode> Frontier = new pQueue<CNode>(new CNode(startx, starty, null), 0);
+	int Ex = 0;
+	int Ey = 0;
+	for(int i = 0; i < Maze.length*Maze[0].length; i++){
+	    if(Maze[i%Maze.length][i/Maze.length] == 'E'){
+		Ey = i%Maze.length;
+		Ex = i/Maze.length;
+	    }
+	}
+	while(Frontier.hasNext()){
+	    CNode net = Frontier.dequeue();
+	    if(Maze[net.getY()][net.getX()] != '#' && Maze[net.getY()][net.getX()] != '-'){
+		if(animate){
+		    wait(200);
+		    System.out.println(clear);
+		    System.out.println(toString());
+		    System.out.println("Frontier:"+net.toString());
+		}
+
+
+		if(Maze[net.getY()][net.getX()] == 'E'){
+		    for(int i = 0; i < Maze.length*Maze[0].length; i++){
+			if(Maze[i%Maze.length][i/Maze.length] == '-')
+			    Maze[i%Maze.length][i/Maze.length] = ' ';
+		    }
+		    net = net.getNext();
+		    while(net.hasNext()){
+			Maze[net.getY()][net.getX()] = '@';
+			net = net.getNext();
+			if(animate){
+			    wait(100);
+			    System.out.println(clear+toString());
+			}
+		    }
+		    Maze[net.getY()][net.getX()] = 'S';
+		    if(animate){
+			wait(100);
+			System.out.println(clear+toString());
+		    }
+		    return true;
+		}
+
+		if(net.getY() != starty || net.getX() != startx){
+		Maze[net.getY()][net.getX()] = '-';
+		}
+		CNode al = new CNode(net.getX()+1, net.getY(), net);
+		CNode bl = new CNode(net.getX()-1, net.getY(), net);
+		CNode cl = new CNode(net.getX(), net.getY()+1, net);
+		CNode dl = new CNode(net.getX(), net.getY()-1, net);
+		Frontier.enqueue(al, Math.abs(al.getX()-Ex)+Math.abs(al.getY()-Ey));
+		Frontier.enqueue(bl, Math.abs(bl.getX()-Ex)+Math.abs(bl.getY()-Ey));
+		Frontier.enqueue(cl, Math.abs(cl.getX()-Ex)+Math.abs(cl.getY()-Ey));
+		Frontier.enqueue(dl, Math.abs(dl.getX()-Ex)+Math.abs(dl.getY()-Ey));
+	    }
+	}
+	return false;
     }
 }
