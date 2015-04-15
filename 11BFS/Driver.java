@@ -6,7 +6,7 @@ public class Driver{
 	//checker.enqueue(3);
 	//System.out.println(""+checker.dequeue()+checker.dequeue());
 	Maze prayer = new Maze("data1.dat");
-	prayer.solveBestFS(true);
+	prayer.solveAStar(true);
     }
 }
 				
