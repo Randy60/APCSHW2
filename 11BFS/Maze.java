@@ -49,10 +49,10 @@ public class Maze{
     public char[][] Maze;
     public String toString(){
 	String s = "";
-	for(int i = 0; i < Maze.length; i++){
+	for(int i = 0; i < Maze[0].length; i++){
 	    s+="\n";
-	    for(int j = 0; j < Maze[i].length; j++){
-		s+=Maze[i][j];
+	    for(int j = 0; j < Maze.length; j++){
+		s+=Maze[j][i];
 	    }
 	}
 	return s;
