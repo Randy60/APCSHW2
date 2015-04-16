@@ -156,10 +156,14 @@ public class Maze{
 	}
 	return false;
     }
-    public boolean solve(boolean BFS, boolean animate){
-	if(BFS)
+    public boolean solve(boolean animate,int type){
+	if(type == 0)
+	    return solveDFS(animate);
+	if(type == 1)
 	    return solveBFS(animate);
-	return solveDFS(animate);
+	if(type == 2)
+	    return solveBest(animate);
+	return solveAStar(animate);
     }
     public int[] solutionCoordinates(){
 	solveBFS(false);
@@ -229,7 +233,7 @@ public class Maze{
 	}
 	return ar;
     }
-    public boolean solveBestFS(boolean animate){
+    public boolean solveBest(boolean animate){
 	pQueue<CNode> Frontier = new pQueue<CNode>(new CNode(startx, starty, null), 0);
 	int Ex = 0;
 	int Ey = 0;
@@ -301,7 +305,7 @@ public class Maze{
 	    CNode net = Frontier.dequeue();
 	    if(Maze[net.getY()][net.getX()] != '#' && Maze[net.getY()][net.getX()] != '-'){
 		if(animate){
-		    wait(200);
+		    wait(100);
 		    System.out.println(clear);
 		    System.out.println(toString());
 		    System.out.println("Frontier:"+net.toString());
