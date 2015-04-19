@@ -41,8 +41,8 @@ public class Maze{
 	    char c = ans.charAt(i);
 	    Maze[i%maxx][i/maxx] = c;
 	    if(c == 'S'){
-		startx = i%maxx;
-		starty = i/maxx;
+		startx = i/maxx;
+		starty = i%maxx;
 	    }
 	}
     }
