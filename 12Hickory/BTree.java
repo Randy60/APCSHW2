@@ -1,0 +1,198 @@
+import java.util.*;
+public class BTree<E> {
+
+    public static final int PRE_ORDER = 0;
+    public static final int IN_ORDER = 1;
+    public static final int POST_ORDER = 2;
+    private Random r = new Random();
+
+    private TreeNode<E> root;
+
+    public BTree() {
+	root = null;
+    }
+
+    /*======== public void add() ==========
+      Inputs:   E d
+      Returns: 
+      
+      Wrapper method for the recursive add()
+      ====================*/     
+    public void add( E d ) { }
+
+    /*======== public void add() ==========
+      Inputs:   TreeNode<E> curr, TreeNode<E> bn  
+      Returns: 
+      
+      Adds bn to the tree rooted at curr. If curr has 
+      an available child space, then attach bn there.
+
+      Otherwise, try to add at the subtree rooted at
+      one of curr's children. Choose the child to be
+      added to randomly.
+      ====================*/
+    private void add( TreeNode<E> curr, TreeNode<E> bn ) {
+    }
+    
+    public void traverse( int mode) {
+	if ( mode == PRE_ORDER )
+	    preOrder( root );
+	else if ( mode == IN_ORDER )
+	    inOrder( root );
+	else
+	    postOrder( root );
+	System.out.println();
+    }
+
+    public void preOrder( TreeNode<E> curr ) {
+	System.out.println(root.preOrder());
+    }
+
+
+    public void inOrder( TreeNode<E> curr ) {
+		System.out.println(root.inOrder());
+    }
+
+    public void postOrder( TreeNode<E> curr ) {
+	System.out.println(root.postOrder());
+    }
+
+    public int getHeight() {
+	return root.getHeight();
+    }
+    /*======== public int getHeight() ==========
+      Inputs:   TreeNode<E> curr  
+      Returns:  The height of the tree rooted at node curr
+      
+      ====================*/
+    public int getHeight( TreeNode<E> curr ) {
+	return -1;
+    }
+
+    /*======== public String getLevel() ==========
+      Inputs:   TreeNode<E> curr
+                int level
+                int currLevel  
+      Returns: A string containing all the elements on the
+               given level, ordered left -> right
+      
+      ====================*/
+    private String getLevel( TreeNode<E> curr, int level, int currLevel ) {
+	return "";
+    }
+    
+    /*======== public String toString()) ==========
+      Inputs:   
+      Returns: A string representation of the tree
+     
+      This string should display each level as a separate line.
+      A simple version might look something like this:
+
+      0
+      1 2
+      3 4 5
+
+      Note that you cannot tell exactly where 3, 4 and 5 lie.
+      That is ok, but if you want a CHALLENGE, you can try to
+      get the output to look nicer, something like this:
+             0
+
+          1      2
+
+            3  4   5
+
+      ====================*/
+    public String toString() {
+	return "";
+    }
+	
+
+    public static void main( String[] args ) {
+
+	BTree<Integer> t = new BTree<Integer>();
+
+	for ( int i=0; i < 8; i++ ) 
+	    t.add( i );
+	System.out.println( "Pre-order: ");
+	t.traverse( PRE_ORDER );
+	System.out.println( "In-order: ");
+	t.traverse( IN_ORDER );
+	System.out.println( "Post-order: ");
+	t.traverse( POST_ORDER );
+	System.out.println( "Height: " + t.getHeight() );
+
+	System.out.println( t );
+    }
+    private class TreeNode<T>{
+	private TreeNode<T> left, right;
+	private T val;
+	public TreeNode(T it){
+	    left = null;
+	    right = null;
+	    val = it;
+	}
+	public void addL(T d){
+	    left = new TreeNode<T>(d);
+	}
+	public void addR(T d){
+	    left = new TreeNode<T>(d);
+	}
+	public void add(T d){
+	    if(left == null)
+		addL(d);
+	    if(right == null)
+		addR(d);
+	    if(Math.random() < 0.5){
+		left.add(d);
+	    }else{
+		right.add(d);
+	    }
+	}
+	public String postOrder(){
+	    String s = "";
+	    if(left != null){
+		s+=left.postOrder();
+	    }
+	    if(right != null){
+		s+=right.postOrder();
+	    }
+	    s+=val+", ";
+	    return s;
+	}
+	public String preOrder(){
+	    String s = "";
+	    s+=val+" ,";
+	    if(left != null){
+		s+=left.preOrder();
+	    }
+	    if(right != null){
+		s+=right.preOrder();
+	    }
+	    return s;
+	}
+	public String inOrder(){
+	    String s = "";
+	    if(left != null){
+		s+=left.inOrder();
+	    }
+	    s+=val+" ,";
+	    if(right != null){
+		s+=right.inOrder();
+	    }
+	    return s;
+	}
+	public int getHeight(){
+	    int l = 1;
+	    int r = 1;
+	    if(left != null){
+		l+=left.getHeight();
+	    }
+	    if(right != null){
+		r+=right.getHeight();
+	    }
+	    if(r > l)
+		return r;
+	    return l;
+	}
+    }
+}
