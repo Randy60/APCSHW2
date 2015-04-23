@@ -60,13 +60,9 @@ public class BTree<E> {
     public int getHeight() {
 	return root.getHeight();
     }
-    /*======== public int getHeight() ==========
-      Inputs:   TreeNode<E> curr  
-      Returns:  The height of the tree rooted at node curr
-      
-      ====================*/
-    public int getHeight( TreeNode<E> curr ) {
-	return -1;
+
+    public int getHeight(TreeNode<E> curr){
+	return curr.getHeight();
     }
 
     /*======== public String getLevel() ==========
