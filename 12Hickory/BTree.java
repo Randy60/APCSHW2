@@ -11,27 +11,16 @@ public class BTree<E> {
     public BTree() {
 	root = null;
     }
+    
+    public void add( E d ) { 
+	if(root != null)
+	    root.add(d);
+	else
+	    root = new TreeNode<E>(d);
+    }
 
-    /*======== public void add() ==========
-      Inputs:   E d
-      Returns: 
-      
-      Wrapper method for the recursive add()
-      ====================*/     
-    public void add( E d ) { }
-
-    /*======== public void add() ==========
-      Inputs:   TreeNode<E> curr, TreeNode<E> bn  
-      Returns: 
-      
-      Adds bn to the tree rooted at curr. If curr has 
-      an available child space, then attach bn there.
-
-      Otherwise, try to add at the subtree rooted at
-      one of curr's children. Choose the child to be
-      added to randomly.
-      ====================*/
     private void add( TreeNode<E> curr, TreeNode<E> bn ) {
+	curr.add(bn);
     }
     
     public void traverse( int mode) {
@@ -64,17 +53,9 @@ public class BTree<E> {
     public int getHeight(TreeNode<E> curr){
 	return curr.getHeight();
     }
-
-    /*======== public String getLevel() ==========
-      Inputs:   TreeNode<E> curr
-                int level
-                int currLevel  
-      Returns: A string containing all the elements on the
-               given level, ordered left -> right
-      
-      ====================*/
+    
     private String getLevel( TreeNode<E> curr, int level, int currLevel ) {
-	return "";
+	return curr.getLevel(level, currLevel);
     }
     
     /*======== public String toString()) ==========
@@ -98,17 +79,33 @@ public class BTree<E> {
             3  4   5
 
       ====================*/
-    public String toString() {
-	return "";
+    public String toString(){
+	String s = "";
+	int a = 0;
+	int z = getHeight();
+	for(int i = z;  i >= 0; i--){
+	    String n = "";
+	    for(int x = a; x > 0; x--){
+		n+=" ";
+	    }
+	    n+=root.getLevel(i,z)+"\n";
+	    s = n + s;
+	    a++;
+	}
+	return s;
     }
-	
 
     public static void main( String[] args ) {
 
-	BTree<Integer> t = new BTree<Integer>();
+	BTree<Character> t = new BTree<Character>();
 
-	for ( int i=0; i < 8; i++ ) 
-	    t.add( i );
+	for (int i = 0; i < 30; i++){
+	    char q = 'A';
+	    for(int g = 0; g < i; g++){
+		q++;
+	    }
+	    t.add(q);
+	}
 	System.out.println( "Pre-order: ");
 	t.traverse( PRE_ORDER );
 	System.out.println( "In-order: ");
@@ -131,19 +128,34 @@ public class BTree<E> {
 	    left = new TreeNode<T>(d);
 	}
 	public void addR(T d){
-	    left = new TreeNode<T>(d);
+	    right = new TreeNode<T>(d);
 	}
 	public void add(T d){
-	    if(left == null)
-		addL(d);
-	    if(right == null)
-		addR(d);
+	    if(left == null){
+		left = new TreeNode<T>(d);
+		return;
+	    }
+	    if(right == null){
+		right = new TreeNode<T>(d);
+		return;
+	    }
 	    if(Math.random() < 0.5){
 		left.add(d);
 	    }else{
 		right.add(d);
 	    }
 	}
+	public void add(TreeNode<T> it){
+	  if(left == null)
+		left = it;
+	    if(right == null)
+		right = it;
+	    if(Math.random() < 0.5){
+		left = it;
+	    }else{
+		right = it;
+	    }
+	}   
 	public String postOrder(){
 	    String s = "";
 	    if(left != null){
@@ -152,12 +164,15 @@ public class BTree<E> {
 	    if(right != null){
 		s+=right.postOrder();
 	    }
-	    s+=val+", ";
+	    s+=val+" ";
 	    return s;
+	}
+	public T getValue(){
+	    return val;
 	}
 	public String preOrder(){
 	    String s = "";
-	    s+=val+" ,";
+	    s+=val+" ";
 	    if(left != null){
 		s+=left.preOrder();
 	    }
@@ -171,7 +186,7 @@ public class BTree<E> {
 	    if(left != null){
 		s+=left.inOrder();
 	    }
-	    s+=val+" ,";
+	    s+=val+" ";
 	    if(right != null){
 		s+=right.inOrder();
 	    }
@@ -189,6 +204,20 @@ public class BTree<E> {
 	    if(r > l)
 		return r;
 	    return l;
+	}
+	public String getLevel(int level, int curr){
+	    String s = "";
+	    int a = 1;
+	    if(level == 0){
+		return s+val;
+	    }
+	    if(left != null){
+		s+=(left.getLevel(level-1, curr));
+	    }
+	    if(right != null){
+		s+=(right.getLevel(level-1, curr));
+	    }
+	    return s;
 	}
     }
 }
