@@ -99,7 +99,7 @@ public class BTree<E> {
 
 	BTree<Character> t = new BTree<Character>();
 
-	for (int i = 0; i < 30; i++){
+	for (int i = 0; i < 62; i++){
 	    char q = 'A';
 	    for(int g = 0; g < i; g++){
 		q++;
