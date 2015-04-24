@@ -5,7 +5,12 @@ public class BTree<E> {
     public static final int IN_ORDER = 1;
     public static final int POST_ORDER = 2;
     private Random r = new Random();
-
+    private int twoExpN(int a){
+	int q = 1;
+	for(int i = 1; i < a; i++)
+	    q*=2;
+	return q;
+    }
     private TreeNode<E> root;
 
     public BTree() {
@@ -55,7 +60,7 @@ public class BTree<E> {
     }
     
     private String getLevel( TreeNode<E> curr, int level, int currLevel ) {
-	return curr.getLevel(level, currLevel);
+	return curr.getLevel(level, level, getHeight());
     }
     
     /*======== public String toString()) ==========
@@ -85,10 +90,7 @@ public class BTree<E> {
 	int z = getHeight();
 	for(int i = z;  i >= 0; i--){
 	    String n = "";
-	    for(int x = a; x > 0; x--){
-		n+=" ";
-	    }
-	    n+=root.getLevel(i,z)+"\n";
+	    n+=root.getLevel(i,i,z)+"\n";
 	    s = n + s;
 	    a++;
 	}
@@ -99,7 +101,7 @@ public class BTree<E> {
 
 	BTree<Character> t = new BTree<Character>();
 
-	for (int i = 0; i < 62; i++){
+	for (int i = 0; i < 30; i++){
 	    char q = 'A';
 	    for(int g = 0; g < i; g++){
 		q++;
@@ -205,17 +207,28 @@ public class BTree<E> {
 		return r;
 	    return l;
 	}
-	public String getLevel(int level, int curr){
+	public String getLevel(int level, int curr, int height){
 	    String s = "";
 	    int a = 1;
+	    int howfar = twoExpN(height-curr);
+	    for(int f = howfar; f > 0; f--)
+		s+=" ";
 	    if(level == 0){
-		return s+val;
+		return (s+val);
 	    }
 	    if(left != null){
-		s+=(left.getLevel(level-1, curr));
+		s+=(left.getLevel(level-1, curr, height));
+	    }else{
+		for(int j = twoExpN(Math.abs(level)); j > 1; j--){
+		    s+=" ";
+		}
 	    }
 	    if(right != null){
-		s+=(right.getLevel(level-1, curr));
+		s+=(right.getLevel(level-1, curr, height));
+	    }else{
+		for(int j = twoExpN(Math.abs(level)); j > 1; j--){
+		    s+=" ";
+		}
 	    }
 	    return s;
 	}
