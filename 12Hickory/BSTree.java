@@ -78,8 +78,22 @@ public class BSTree <T extends Comparable> {
 	if(curr == null)
 	    return null;
 	if(c.equals(curr.getData())){
-	    if(isLeaf(curr))
-		return curr = null;
+	    if(isLeaf(curr)){
+		BSTreeNode<T> n = curr;
+		curr = null;
+		return n;
+	    }
+	    BSTreeNode<T> carl = curr;
+	    if(curr.getRight() == null){
+		return curr = curr.getLeft();
+	    }else{
+		carl = carl.getRight();
+		while(carl.getLeft() != null){
+		    carl = carl.getLeft();
+		}
+		curr.setData(carl.getData());
+		return curr;
+	    }
 	}
 	if(c.compareTo(curr.getData()) < 0){
 	    return remove(curr.getLeft(), c);
