@@ -75,13 +75,17 @@ public class BSTree <T extends Comparable> {
       curr, if it exists.
       ====================*/
     private BSTreeNode<T> remove( BSTreeNode<T> curr, T c ) {
+	if(curr == null)
+	    return null;
 	if(c.equals(curr.getData())){
 	    if(isLeaf(curr))
 		return curr = null;
 	}
 	if(c.compareTo(curr.getData()) < 0){
+	    return remove(curr.getLeft(), c);
+	}else{
+	    return remove(curr.getRight(), c);
 	}
-	return null;
     }
 
 
