@@ -210,7 +210,7 @@ public class BTree<E> {
 	public String getLevel(int level, int curr, int height){
 	    String s = "";
 	    int a = 1;
-	    int howfar = twoExpN(height-curr);
+	    int howfar = twoExpN(height-curr-1)-1;
 	    for(int f = howfar; f > 0; f--)
 		s+=" ";
 	    if(level == 0){
