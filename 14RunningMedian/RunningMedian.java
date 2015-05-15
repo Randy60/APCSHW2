@@ -5,6 +5,9 @@ public class RunningMedian{
 	MaxH.add(Integer.MAX_VALUE);
 	MinH.add(Integer.MIN_VALUE);
     }
+     public String name(){
+	return "Higgins, Randolph";
+    }
     public void add(int adder){
 	int compro = (MaxH.peek()+MinH.peek())/2;
 	if(adder < compro)

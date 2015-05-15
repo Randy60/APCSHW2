@@ -4,6 +4,9 @@ public class MyHeap{
     public MyHeap(){
 	heapy.add(1);
     }
+    public String name(){
+	return "Higgins, Randolph";
+    }
     private int sha = 0;
     private boolean isMax = true;
     public MyHeap(boolean it){

@@ -12,7 +12,13 @@ public class BTree<E> {
 	return q;
     }
     private TreeNode<E> root;
-
+    private int maxLength() {
+	// returns the minimum number of characters required
+	// to print the data from any node in the tree
+	if (root == null)
+	    return 0;
+	return root.maxLength(root);
+    }
     public BTree() {
 	root = null;
     }
@@ -60,7 +66,7 @@ public class BTree<E> {
     }
     
     private String getLevel( TreeNode<E> curr, int level, int currLevel ) {
-	return curr.getLevel(level, level, getHeight());
+	return curr.getLevel(curr, level, level, getHeight());
     }
     
     /*======== public String toString()) ==========
@@ -90,7 +96,7 @@ public class BTree<E> {
 	int z = getHeight();
 	for(int i = z;  i >= 0; i--){
 	    String n = "";
-	    n+=root.getLevel(i,i,z)+"\n";
+	    n+=root.getLevel(root, i,i,z)+"\n";
 	    s = n + s;
 	    a++;
 	}
@@ -125,6 +131,12 @@ public class BTree<E> {
 	    left = null;
 	    right = null;
 	    val = it;
+	}
+	public TreeNode<T> getRight(){
+	    return right;
+	}
+	public TreeNode<T> getLeft(){
+	    return left;
 	}
 	public void addL(T d){
 	    left = new TreeNode<T>(d);
@@ -207,30 +219,43 @@ public class BTree<E> {
 		return r;
 	    return l;
 	}
-	public String getLevel(int level, int curr, int height){
-	    String s = "";
-	    int a = 1;
-	    int howfar = twoExpN(height-curr-1)-1;
-	    for(int f = howfar; f > 0; f--)
-		s+=" ";
-	    if(level == 0){
-		return (s+val);
+	public String getLevel(TreeNode<E> curr, int currLevel, int targetLevel, int height){
+	    if (currLevel == 1)
+		return curr.toString() + spaces(Math.pow(2, height - targetLevel + 1) - 1);
+	    String result = "";
+	    if (curr.getLeft() != null)
+		result += getLevel(curr.getLeft(), currLevel - 1, targetLevel, height);
+	    else result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
+	    if (curr.getRight() != null)
+		result += getLevel(curr.getRight(), currLevel - 1, targetLevel, height);
+	    else result += spaces(Math.pow(2, height - targetLevel + currLevel - 1));
+	    return result;
+	}
+	
+	private int maxLength(TreeNode<T> curr) {
+	    int max = curr.toString().length();
+	    int temp;
+	    if (curr.getLeft() != null) {
+		temp = maxLength(curr.getLeft());
+		if (temp > max)
+		    max = temp;
 	    }
-	    if(left != null){
-		s+=(left.getLevel(level-1, curr, height));
-	    }else{
-		for(int j = twoExpN(Math.abs(level)); j > 1; j--){
-		    s+=" ";
-		}
+	    if (curr.getRight() != null) {
+		temp = maxLength(curr.getRight());
+		if (temp > max)
+		    max = temp;
 	    }
-	    if(right != null){
-		s+=(right.getLevel(level-1, curr, height));
-	    }else{
-		for(int j = twoExpN(Math.abs(level)); j > 1; j--){
-		    s+=" ";
-		}
-	    }
-	    return s;
+	    return max;
+	}
+	public String toString(){
+	    return ""+val;
+	}
+	private String spaces(double n) {
+	    // returns a String of n spaces
+	    String result = "";
+	    for (int i = 0; i < n; i++)
+		result += " ";
+	    return result;
 	}
     }
 }
