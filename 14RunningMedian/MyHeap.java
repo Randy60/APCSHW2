@@ -66,7 +66,7 @@ public class MyHeap{
 	int it = heapy.get(1);
 	heapy.set(1, heapy.remove(heapy.size()-1));
 	int at = 1;
-	while(at*2 < heapy.size() && (heapy.get(at) > heapy.get(at*2)||heapy.get(at) > heapy.get(at*2+1)))
+	while(at*2+1 < heapy.size() && (heapy.get(at) > heapy.get(at*2)||heapy.get(at) > heapy.get(at*2+1)))
 	    if(heapy.get(at*2) < heapy.get(at*2+1)){
 		int temp = heapy.get(at);
 		heapy.set(at, heapy.get(at*2));

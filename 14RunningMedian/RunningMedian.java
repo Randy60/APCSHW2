@@ -1,6 +1,6 @@
 public class RunningMedian{
-    private MyHeap MaxH = new MyHeap();
-    private MyHeap MinH = new MyHeap(false);
+    private MyHeap MaxH = new MyHeap(false);
+    private MyHeap MinH = new MyHeap();
     public RunningMedian(){
 	MaxH.add(Integer.MAX_VALUE);
 	MinH.add(Integer.MIN_VALUE);
