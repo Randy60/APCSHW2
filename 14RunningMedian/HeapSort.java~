@@ -1,0 +1,10 @@
+public class HeapSort{
+    public static int[] sort(int[] a){
+	MyHeap alex = MyHeap(false);
+	for(int i = 0; i < a.length; i++)
+	    alex.add(a[i]);
+	for(int i = 0; i < a.length; i++)
+	    a[i] = alex.remove();
+	return a;
+    }
+}
