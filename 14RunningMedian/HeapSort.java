@@ -10,7 +10,7 @@ public class HeapSort{
     public static boolean check(int[] ar){
 	boolean right = true;
 	for(int i = 1; i < ar.length; i++)
-	    if(ar[i-1] <= ar[i])
+	    if(ar[i-1] > ar[i])
 		right = false;
 	return right;
     }
